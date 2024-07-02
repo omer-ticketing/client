@@ -1,0 +1,1 @@
+export const authServiceUrl = process.env.AUTH_SERVICE_URL || 'http://auth-srv.default.svc.cluster.local:3000';
