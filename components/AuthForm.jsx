@@ -1,15 +1,17 @@
+"use client"
 import { useState } from "react";
-import Router from "next/router";
+import { useRouter } from 'next/navigation'
 import useRequest from "../hooks/useRequest";
 
 const AuthForm = ({ isSignUp }) => {
+	const router = useRouter();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const { doRequest, errors } = useRequest({
         method: "post",
         url: `/api/users/sign${isSignUp ? 'up' : 'in'}`,
         body: { email, password },
-        onSuccess: () => Router.push("/"),
+        onSuccess: () => router.push("/"),
     });
 
     const onSubmit = async (e) => {

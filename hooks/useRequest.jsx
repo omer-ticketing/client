@@ -15,7 +15,7 @@ export default ({ url, method, body, onSuccess }) => {
                 <div className="alert alert-danger">
                     <h4>Oops</h4>
                     <ul className="my-0">
-                        {err.response.data.errors.map(({ message }) => (
+                        {err.response?.data?.errors.map(({ message }) => (
                             <li key={message}>{message}</li>
                         ))}
                     </ul>
