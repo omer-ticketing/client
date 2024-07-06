@@ -4,10 +4,10 @@ import { cookies } from "next/headers";
 import axios from "axios";
 import { authServiceUrl } from "../utils/constants";
 
-const getCurrentUser = async () =>  {
+export const getCurrentUser = async () => {
     const cookieStore = cookies();
     let cookieHeader = cookieStore.toString();
-	cookieHeader = decodeURIComponent(cookieHeader);
+    cookieHeader = decodeURIComponent(cookieHeader);
 
     try {
         const headers = cookieHeader ? { Cookie: cookieHeader } : {};
@@ -18,14 +18,13 @@ const getCurrentUser = async () =>  {
         console.error("Error fetching current user:", error.response?.data?.errors || error.message);
         return null;
     }
-}
+};
 
 export default async ({ children }) => {
-	const currentUser = await getCurrentUser();
     return (
         <html lang="en">
             <body>
-                <Header currentUser={currentUser} />
+                <Header />
                 {children}
             </body>
         </html>

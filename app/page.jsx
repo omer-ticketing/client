@@ -1,5 +1,4 @@
-const UserProfilePage = async () => {
-
+const UserProfilePage = () => {
     return (
         <div>
         </div>
