@@ -25,7 +25,7 @@ export default async ({ children }) => {
         <html lang="en">
             <body>
                 <Header />
-                {children}
+                <div className="container">{children}</div>
             </body>
         </html>
     );
