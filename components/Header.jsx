@@ -1,9 +1,10 @@
 import Link from 'next/link';
 import { getCurrentUser } from '../app/layout';
+import { getCookieHeaders } from '../utils/helpers';
 
 export default async () => {
 	const currentUser = await getCurrentUser();
-
+	
 	const links = [
 		!currentUser && {label: 'Sign Up', href: '/auth/signup'},
 		!currentUser && {label: 'Sign In', href: '/auth/signin'},

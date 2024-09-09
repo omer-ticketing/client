@@ -1,26 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import useRequest from "../hooks/useRequest";
 import Link from "next/link";
+import { useAppContext } from "./appProvider";
 
 const UserProfilePage = () => {
-    const [tickets, setTickets] = useState([]);
-    const { errors, doRequest } = useRequest({
-        method: "get",
-        url: "/api/tickets",
-    });
+	const { tickets, user } = useAppContext();
+	if (!user) {
+		return <div>You need to log in</div>
+	}
 
-    const fetchTickets = async () => {
-        const res = await doRequest();
-        if (res?.data?.tickets) {
-            setTickets(res.data.tickets);
-        }
-    };
-
-    useEffect(() => {
-        fetchTickets();
-    }, []);
+	if (!tickets) {
+		return <div>You have no tickets yet</div>
+	}
 
     return (
         <div>
@@ -43,7 +34,7 @@ const UserProfilePage = () => {
                     ))}
                 </tbody>
             </table>
-            {errors}
+            {/* {errors} */}
         </div>
     );
 };
