@@ -7,17 +7,28 @@ import { getTimeInSecFromNow } from "../../../utils/clientSideHelpers";
 const OrderById = () => {
 	const { orderId } = useParams();
 	const [order, setOrder] = useState();
-	const [timeLeft, setTimeLeft] = useState('');
+	const [timeLeft, setTimeLeft] = useState(0);
 	
-	const { doRequest, errors } = useRequest({
+	const { doRequest: getOrderRequest, errors: getOrderErrs } = useRequest({
 		url: `/api/orders/${orderId}`,
 		method: "get",
 	});
+
+	const { doRequest: createPaymentLinkReq, errors: payErrors } = useRequest({
+		url: '/api/payments',
+		method: "post",
+		body: { orderId }
+	});
 	
 	const fetchOrder = async () => {
-		const res = await doRequest();		
+		const res = await getOrderRequest();		
 		setOrder(res.data.order);
-	}
+	};
+	
+	const handlePay = async () => {
+		const res = await createPaymentLinkReq();
+		window.location.href = res.data.approveOrderLink;
+	};
 
 	useEffect(() => {
 		fetchOrder();
@@ -55,7 +66,9 @@ const OrderById = () => {
 		<h1>{order.ticket.title}</h1>
 		<h4>{order.ticket.price}</h4>
 		<div>You have <strong>{timeLeft}</strong> seconds left to pay for the order</div>
-		{errors}
+		<button className="btn btn-primary" onClick={handlePay}>Pay</button>
+		{getOrderErrs}
+		{payErrors}
 	</div>
 }
  
