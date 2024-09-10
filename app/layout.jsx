@@ -4,7 +4,7 @@ import axios from "axios";
 import { authServiceUrl, ticketsServiceUrl } from "../utils/constants";
 import { AppProvider } from "./appProvider";
 import { ErrorBoundary } from "next/dist/client/components/error-boundary";
-import { getCookieHeaders } from "../utils/helpers";
+import { getCookieHeaders } from "../utils/serverSideHelpers";
 
 export const getTickets = async () => {
     try {

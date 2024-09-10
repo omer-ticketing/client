@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { getCurrentUser } from '../app/layout';
-import { getCookieHeaders } from '../utils/helpers';
 
 export default async () => {
 	const currentUser = await getCurrentUser();
